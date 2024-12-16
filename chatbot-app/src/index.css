@@ -1,0 +1,15 @@
+@import './styles/tailwind.css';
+
+.loader {
+  border-top-color: #0b2231;
+  animation: spinner 0.6s linear infinite;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

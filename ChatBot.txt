@@ -1,0 +1,204 @@
+Step 1: Core Chat Functionality
+Implement ChatBox Enhancements:
+
+Add a dropdown for selecting documents from the uploaded documents list.
+Attach the selected document as metadata to the chat message.
+Display attached document references in the UI as Attached: <Document Name> until explicitly removed.
+Ensure no page reloads during this process.
+Handle New Chats and Existing Chats:
+
+"New Chat" button triggers an API call with chat_id: null to start a new chat.
+Clicking on a chat from history loads the corresponding chat messages into the ChatBox.
+Step 2: Chat History Enhancements
+Display Chat List:
+
+List chat names with a placeholder for empty states: "No chats yet. Start a new conversation!".
+Use useState to dynamically update the chat list when a new chat is created or deleted.
+Add Hover Actions for Chats:
+
+Download Chat: Clicking downloads the chat as a JSON file.
+Delete Chat: Clicking removes the chat from the list without reloading the page.
+Implement hover icons that only appear when hovering over a chat.
+Step 3: Uploaded Documents Enhancements
+Display Uploaded Documents:
+
+List uploaded documents with a placeholder: "No documents uploaded. Upload one to get started!".
+Use useState to dynamically update the document list when a new document is uploaded or deleted.
+Add Hover Actions for Documents:
+
+Delete Document: Clicking removes the document from the list without reloading the page.
+Hover icons for delete should appear on hover.
+Step 4: Mock API Integration
+Set Up mockApi.js:
+
+Create mock APIs for the following:
+Fetching uploaded documents.
+Fetching chat history.
+Fetching chat messages.
+Creating/continuing a chat.
+Uploading/deleting documents and chats.
+Connect Components to Mock APIs:
+
+Use these mock APIs in the relevant components (ChatBox, ChatHistory, UploadDocuments) for realistic behavior.
+Step 5: UI & State Management
+Dynamic Updates Without Page Reloads:
+
+Ensure document uploads, chat deletions, and new chat creations update the respective components without refreshing the page.
+Use useState to manage local state for:
+Chat History: chatHistory state.
+Uploaded Documents: uploadedDocuments state.
+Chat Messages: currentChatMessages state.
+Placeholders for Empty States:
+
+Add placeholders for chat history and uploaded documents when there’s no data.
+Hover Effects:
+
+Add hover effects for delete and download icons in chat history and uploaded documents.
+Step 6: Styling & Responsiveness
+Dynamic Responsiveness:
+
+Use Tailwind CSS to ensure the app works on different screen sizes.
+Sidebar collapses gracefully on smaller screens.
+Scrollable sections for uploaded documents and chat history.
+Consistency in Hover Actions:
+
+Use Tailwind utilities to style hover icons for visibility and user clarity.
+Step 7: Testing
+Test Core Features:
+
+Check chat creation, message handling, and chat history loading.
+Validate attachment functionality for selected documents.
+Test document uploads and hover actions for delete.
+Debug State Management:
+
+Ensure useState updates dynamically without breaking other components.
+Validate that no actions (new chat, document upload) trigger full page reloads.
+file Structure: 
+src/
+│
+├── App.jsx
+├── App.css
+├── index.css
+├── main.jsx
+│
+├── components/
+│   ├── ChatBox.jsx
+│   ├── ChatHistory.jsx
+│   ├── Sidebar.jsx
+│   ├── UploadDocuments.jsx
+│   ├── Modal.jsx
+│   └── UserSettings.jsx
+│
+├── pages/
+│   ├── AuthPage.jsx
+│   └── ChatPage.jsx
+│
+├── hooks/
+│   └── useChatData.jsx
+│
+├── utils/
+│   ├── mockApi.js
+│   ├── chatResponses.js
+│   └── tokenValidation.js
+│
+├── styles/
+│   └── tailwind.css
+│
+└── assets/
+Steps:
+Step 1: Set Up Basic Project Structure
+Initialize a Vite project with React template:
+npm create vite@latest chatbot-app --template react
+Install dependencies:
+Install Tailwind CSS for styling.
+Install React Router for page navigation.
+Set up the Tailwind configuration (tailwind.config.js) and integrate it into your project (index.css).
+Step 2: Create Core Layout and Routing
+Define app layout:
+Set up a basic layout where the app is divided into two main areas: a sidebar (on the left) and a main content area (on the right).
+Set up routing for different pages:
+/auth → Login/Registration Page (AuthPage.jsx).
+/chat → Chat Interface (ChatPage.jsx).
+Sidebar components:
+For now, just show the static structure (icons and sections), with no interaction yet.
+Step 3: Sidebar Setup (Collapsible, Hover Behavior)
+Create the Sidebar Component (Sidebar.jsx):
+Inside, structure the sidebar with the following sections:
+New Chat (icon)
+Uploaded Documents (icon)
+Chat History (icon)
+User Settings (icon)
+Logout (icon)
+Collapsible Sidebar:
+The sidebar should initially be collapsed, only showing icons.
+When the user hovers over the collapsed sidebar, it should expand and show text labels beside the icons.
+Hover Behavior:
+When hovering over a collapsed sidebar, it should expand to reveal the text.
+The text should auto-hide when the hover is removed, collapsing back to the icon-only view.
+Step 4: ChatPage Layout and Basic Chat Interface
+Create ChatPage.jsx:
+Define a container that will hold:
+The Sidebar component on the left.
+The ChatBox component on the right, which will display messages.
+Structure of ChatBox:
+Placeholder for chat messages.
+A text input field for the user to send messages.
+A basic static response system (you’ll implement later).
+No actual functionality yet for messages or user input—just laying out the UI.
+Step 5: Create Chat History UI
+Create ChatHistory.jsx:
+Show a list of past chats. Each entry will show the name of the chat (for now, static data).
+No message previews yet—only the chat name.
+Ensure that the list is scrollable if there are too many chats.
+Hover Effects:
+When hovering over a chat entry, show delete and download icons.
+Clicking delete removes the chat from the list (don’t trigger a page reload).
+Clicking download triggers the download of that chat as a JSON file.
+Step 6: Upload Documents Interface
+Create UploadDocuments.jsx:
+Allow the user to upload documents (e.g., PDF, Word, Text).
+Display a list of uploaded documents with their names.
+Hover Effects on Documents:
+When hovering over a document, show a delete icon.
+Clicking delete removes the document from the list (again, no page reload).
+Ensure the document list is scrollable if too many documents are uploaded.
+Step 7: Set Up State Management
+Use useState for managing local states within components:
+chatHistory: Stores the list of chat sessions (names of chats).
+uploadedDocuments: Stores the uploaded documents (file names and metadata).
+currentChatMessages: Stores messages for the current chat session.
+Update states dynamically when new chats are created, documents are uploaded, or messages are sent.
+Step 8: Mock API Responses
+Create mock APIs for:
+Creating new chats.
+Fetching chat history.
+Fetching messages for a given chat.
+Uploading and deleting documents.
+Mock Chat Creation:
+A call with chat_id: null will be considered as creating a new chat (assign a new chat_id).
+Mock Document Upload:
+Return a file name or reference when a document is uploaded (no actual file storage yet).
+Mock Document and Chat Deletion:
+Implement mock logic for deleting a chat or document from the list.
+Step 9: Integration of Hover Effects
+Hover over Sidebar:
+Ensure the sidebar collapses and expands only when hovering over it.
+Add transitions for smooth collapse/expand behavior (using Tailwind CSS for animations).
+Hover over Chat History and Documents:
+Display delete and download icons only when the user hovers over an item in the chat history or document list.
+Ensure these icons are styled and positioned clearly, and the actions trigger without page reloads.
+Step 10: Test Layout & Interactions
+Test all hover-based interactions:
+Verify that the sidebar collapses and expands smoothly on hover.
+Ensure the chat history and document hover actions work correctly (showing delete/download icons and triggering actions).
+Check the dynamic updating of states:
+Add new chats and documents and check that the state updates without page reloads.
+Step 11: Finalize UI/UX
+Polish UI:
+Apply final styling adjustments (using Tailwind) to ensure that components are visually appealing.
+Make sure everything is mobile responsive (the sidebar collapses appropriately on smaller screens).
+Final Testing:
+Perform cross-browser and device testing to ensure consistent behavior and appearance.
+Step 12: Prepare for API Integration
+API Integration Planning:
+Once the basic UI and mockups are working smoothly, prepare for replacing mock APIs with real ones (authentication, chat management, file handling).
